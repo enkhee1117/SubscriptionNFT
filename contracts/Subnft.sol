@@ -48,6 +48,7 @@ contract SubNFT is ERC721, Ownable {
     function setBaseTokenURI(string memory _baseTokenURI) public onlyOwner{
         baseTokenURI = _baseTokenURI;
     }
+    function 
 }
 
 /*
