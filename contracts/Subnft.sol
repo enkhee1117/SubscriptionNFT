@@ -48,7 +48,14 @@ contract SubNFT is ERC721, Ownable {
     function setBaseTokenURI(string memory _baseTokenURI) public onlyOwner{
         baseTokenURI = _baseTokenURI;
     }
-    function 
+    // Override TOKENURI: 
+    function tokenURI(uint256 tokenId) public view override returns (string memory){
+         _requireMinted(tokenId);
+
+        string memory baseURI = _baseURI();
+        // Not concatenating token ID anymore:
+        return bytes(baseURI).length > 0 ? baseURI : "";
+    }
 }
 
 /*
@@ -64,3 +71,4 @@ contract SubNFT is ERC721, Ownable {
     SubNFT on Goerli:
     0x8DDDbCC27E702795b5411ce7C9d6A134deF61B4c
 */
+

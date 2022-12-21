@@ -11,3 +11,16 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.js
 ```
+
+# Metadata standards at [opensea](https://docs.opensea.io/docs/metadata-standards)
+
+## MarkDown cheatsheat: [link](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#tables)
+
+| Header 1 | Header 2 | Header 3 |
+| --- | :---: |---: 
+| *Data* | Data 2 | Data3 |
+| Data | `Data 2` | Data3 |
+| Data | Data 2 | **Data3** |
+| Data | Data 2 | Data3 |
+| Data | Data 2 | Data3 |
+
