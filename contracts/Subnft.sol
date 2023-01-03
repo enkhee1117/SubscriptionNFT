@@ -9,6 +9,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 
 contract SubNFT is ERC721, Ownable {
+    uint256 private constant TOTAL_SUPPLY = 1000;
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
     uint256 nftPrice;
@@ -32,12 +33,30 @@ contract SubNFT is ERC721, Ownable {
 
     function erc20Mint(uint256 amount) public returns(uint256){
         require(amount == nftPrice,"Wrong Price!");
+        uint256 tokenId = _tokenIds.current();
+        require(tokenId < totalSupply(), "TOTAL SUPPLY HAS REACHED!");
         IERC20 token = IERC20(_paymentTokenAddr);
         token.transferFrom(msg.sender, address(token), amount);
         _tokenIds.increment();
         uint256 newNftId = _tokenIds.current();
         _mint(msg.sender, newNftId);
         return newNftId;
+    }
+    /*
+        POOP-eer bish $-oor subscription hudaldaj avsan humuustee NFT-g ni mint hiij uguy!
+    */
+
+    function mintFor(address receiver) public onlyOwner returns(uint256){
+        uint256 tokenId = _tokenIds.current();
+        require(tokenId < totalSupply(), "TOTAL SUPPLY HAS REACHED!");
+        _tokenIds.increment();
+        uint256 newNftId = _tokenIds.current();
+        _mint(receiver, newNftId);
+        return newNftId;
+    }
+
+    function totalSupply() public pure returns(uint256){
+        return TOTAL_SUPPLY;
     }
 
     // BaseURI:
@@ -59,8 +78,7 @@ contract SubNFT is ERC721, Ownable {
 }
 
 /*
-    Opensea tutorial:
-    https://docs.opensea.io/docs/1-structuring-your-smart-contract
+    Deployment note: 
 
     Rocket image on IPFS:
     https://gateway.pinata.cloud/ipfs/Qmast8bUfgbdeh3q5yrqkh26wDPhBtY8AnGRrgDMe8UdH6
@@ -69,6 +87,9 @@ contract SubNFT is ERC721, Ownable {
     0x655DB1A9ddAc3ee455fB6eeA2e4A25d4Dfdc1853
 
     SubNFT on Goerli:
-    0x8DDDbCC27E702795b5411ce7C9d6A134deF61B4c
+    0xadF42CfF3b2c45d33f01B7b1D9b619f9050934Ff
+
+    SUBNFT on FANTOM:
+    
 */
 
